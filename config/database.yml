@@ -55,7 +55,7 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
+test: &test
   <<: *default
   database: dab-blog_test
 
@@ -83,3 +83,6 @@ production:
   database: dab-blog_production
   username: dab-blog
   password: <%= ENV['DAB-BLOG_DATABASE_PASSWORD'] %>
+
+cucumber:
+  <<: *test
