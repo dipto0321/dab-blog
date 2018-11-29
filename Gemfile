@@ -39,7 +39,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.8', '>= 3.8.1'
-  gem 'cucumber-rails', '~> 1.6'
+  gem 'cucumber-rails', '~> 1.6', require: false
   gem 'shoulda-matchers', '~> 4.0.0.rc1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
   gem 'factory_bot_rails', '~> 4.11', '>= 4.11.1'
