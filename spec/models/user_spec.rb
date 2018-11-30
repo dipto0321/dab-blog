@@ -1,26 +1,63 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject {described_class.new}
+  subject { described_class.new( fullname:'John Doe',
+                                 username: 'john01',
+                                 email: 'john@demo.com',
+                                 password: 'Pas$0wrd') }
   it "is valid with valid attributes" do
-    subject.fullname = 'John Doe'
-    subject.username = 'john01'
-    subject.email = 'john@demo.com'
-    subject.password = 'pa$$0rd'
     expect(subject).to be_valid
   end
 
   it "is not valid without a fullname" do
-    user = User.new(fullname: nil)
-    expect(user).to_not be_valid
+    subject.fullname = nil
+    expect(subject).to_not be_valid
   end
-  it "is not valid without a username"
-  it "should have a uniqe username"
-  it "is not valid without a email"
-  it "should have a uniqe email"
-  it "is not valid without a password"
+
+  describe 'username' do
+    it 'should be presence' do
+      subject.username = nil
+      expect(subject).to_not be_valid
+    end
+
+    it 'maximum length should be fifty chars' do
+      subject.username = 'a' * 51
+      expect(subject).to_not be_valid
+    end
+    it 'should be uniqe'
+  end
+  
+  describe 'email' do
+    it 'should be presence' do
+      subject.email = nil
+      expect(subject).to_not be_valid
+    end
+
+    it 'maximum length should be 255 chars' do
+      subject.email = "#{'a' * 255}@demo.com"
+      expect(subject).to_not be_valid
+    end
+
+    it 'formate should be valid' do
+      subject.email = "john@"
+      expect(subject).to_not be_valid
+    end
+
+    it 'should be uniqe'
+  end
+
   describe 'password' do
-    it "is not valid without minimum six characters"
-    it "is not valid without atleast one number and special character"
+    it "should be presence" do
+      subject.password = nil
+      expect(subject).to_not be_valid
+    end
+    it "is not valid without minimum six characters" do
+      subject.password = 'Pa$0'
+      expect(subject).to_not be_valid
+    end
+    it "is not valid without atleast one capital letter, small letter,number, and special character" do
+      subject.password = 'password'
+      expect(subject).to_not be_valid
+    end
   end
 end
