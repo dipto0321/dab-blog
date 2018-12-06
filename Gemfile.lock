@@ -116,6 +116,8 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     ffi (1.9.25-x64-mingw32)
     font-awesome-sass (5.5.0.1)
       sassc (>= 1.11)
@@ -293,6 +295,7 @@ DEPENDENCIES
   devise (~> 4.5)
   duktape
   factory_bot_rails (~> 4.11, >= 4.11.1)
+  faker
   font-awesome-sass (~> 5.5, >= 5.5.0.1)
   hirb (~> 0.7.3)
   jbuilder (~> 2.5)

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_many :posts, dependent: :destroy
+  has_many :comments, as: :commentable
   before_save { self.email = email.downcase }
   VALID_PASSWORD_REGEX = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.freeze
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
@@ -14,6 +16,4 @@ class User < ApplicationRecord
   validates :password, presence: true,
                        format: { with: VALID_PASSWORD_REGEX },
                        length: { minimum: 6 }
-
-  has_many :posts
 end

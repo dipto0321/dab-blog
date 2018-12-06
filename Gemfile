@@ -49,6 +49,7 @@ group :development, :test do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
   gem 'factory_bot_rails', '~> 4.11', '>= 4.11.1'
   gem 'database_cleaner', '~> 1.7'
+  gem 'faker'
 end
 
 group :development do
