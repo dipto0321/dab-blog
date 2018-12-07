@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
       subject.username = 'a' * 51
       expect(subject).to_not be_valid
     end
-    it 'should be uniqe'
+    it { should validate_uniqueness_of(:username) }
   end
   
   describe 'email' do
@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
       expect(subject).to_not be_valid
     end
 
-    it 'should be uniqe'
+    it { should validate_uniqueness_of(:email).ignoring_case_sensitivity }
   end
 
   describe 'password' do
@@ -59,5 +59,10 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       expect(subject).to_not be_valid
     end
+  end
+
+  describe 'Associations' do
+    it { should have_many(:posts) }
+    it { should have_many(:comments) }
   end
 end
