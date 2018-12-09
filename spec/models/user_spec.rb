@@ -1,63 +1,54 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { described_class.new( fullname:'John Doe',
-                                 username: 'john01',
-                                 email: 'john@demo.com',
-                                 password: 'Pas$0wrd') }
-  it "is valid with valid attributes" do
-    expect(subject).to be_valid
+  before(:all) do
+    @user1 = create(:user)
   end
 
-  it "is not valid without a fullname" do
-    subject.fullname = nil
-    expect(subject).to_not be_valid
+  it 'is valid with valid attributes' do
+    expect(@user1).to be_valid
   end
+
+  it { should validate_presence_of(:fullname) }
 
   describe 'username' do
-    it 'should be presence' do
-      subject.username = nil
-      expect(subject).to_not be_valid
-    end
+    it { should validate_presence_of(:username) }
 
     it 'maximum length should be fifty chars' do
-      subject.username = 'a' * 51
-      expect(subject).to_not be_valid
+      user2 = build(:user, username: 'a' * 51)
+      expect(user2).to_not be_valid
     end
     it { should validate_uniqueness_of(:username) }
   end
-  
+
   describe 'email' do
-    it 'should be presence' do
-      subject.email = nil
-      expect(subject).to_not be_valid
-    end
+    it { should validate_presence_of(:email) }
 
     it 'maximum length should be 255 chars' do
-      subject.email = "#{'a' * 255}@demo.com"
-      expect(subject).to_not be_valid
+      user2 = build(:user, email: "#{'a' * 255}@demo.com")
+      expect(user2).to_not be_valid
     end
 
     it 'formate should be valid' do
-      subject.email = "john@"
-      expect(subject).to_not be_valid
+      user2 = build(:user, email: 'john@')
+      expect(user2).to_not be_valid
     end
 
     it { should validate_uniqueness_of(:email).ignoring_case_sensitivity }
   end
 
   describe 'password' do
-    it "should be presence" do
-      subject.password = nil
-      expect(subject).to_not be_valid
+    it { should validate_presence_of(:password) }
+
+    it 'is not valid without minimum six characters' do
+      user2 = build(:user, password: 'Pa$0')
+      expect(user2).to_not be_valid
     end
-    it "is not valid without minimum six characters" do
-      subject.password = 'Pa$0'
-      expect(subject).to_not be_valid
-    end
-    it "is not valid without atleast one capital letter, small letter,number, and special character" do
-      subject.password = 'password'
-      expect(subject).to_not be_valid
+    it 'not valid without strong password' do
+      user2 = build(:user, password: 'password')
+      expect(user2).to_not be_valid
     end
   end
 
