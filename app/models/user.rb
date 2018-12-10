@@ -12,7 +12,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   has_secure_password
-  validates :password, presence: true,
-                       format: { with: VALID_PASSWORD_REGEX },
-                       length: { minimum: 6 }
+  validates :password, format: { with: VALID_PASSWORD_REGEX },
+                       length: { minimum: 6 },
+                       allow_nil: true
 end

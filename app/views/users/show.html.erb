@@ -1,0 +1,25 @@
+<% provide(:title, "User profile info") %>
+<h1>User's info</h1>
+<hr>
+<p><strong>Fullname:</strong> <%= @user.fullname%></p>
+<p><strong>Username:</strong> <%= @user.username%></p>
+<p><strong>Email:</strong> <%= @user.email%></p>
+<div>
+  <%= link_to  "Delete", @user, class: 'btn btn-danger',
+                               method: :delete,
+                                 data: {confirm: 'Are you sure?'} %>
+</div>
+
+<div class="card my-3">
+  <div class="card-body">
+    <div class="list-group">
+      <% @user.posts.each do |post| %>
+        <a href="#" class="list-group-item list-group-item-action mt-2">
+            <%= post.title %>
+            <span class="badge badge-primary float-right">Published at: <%= post.created_at %></span>
+        </a>
+    <% end %>
+    </div>
+    
+  </div>
+</div>
