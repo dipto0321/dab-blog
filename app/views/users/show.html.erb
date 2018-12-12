@@ -1,25 +1,19 @@
-<% provide(:title, "User profile info") %>
-<h1>User's info</h1>
+<% provide(:title, "#{@user.username} Profile info") %>
+<h1><%=@user.username %> info</h1>
 <hr>
-<p><strong>Fullname:</strong> <%= @user.fullname%></p>
-<p><strong>Username:</strong> <%= @user.username%></p>
-<p><strong>Email:</strong> <%= @user.email%></p>
-<div>
-  <%= link_to  "Delete", @user, class: 'btn btn-danger',
-                               method: :delete,
-                                 data: {confirm: 'Are you sure?'} %>
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag  "user.png", class:"img-fluid" %>
+    <a href="#" class="btn btn-info w-100 my-2"><i class="far fa-plus-square"></i> Follow</a>
+    <a href="#" class="btn btn-warning w-100 my-1"><i class="fas fa-user-plus text-white"></i> Friend</a>
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text"><strong>Fullname: </strong> <%= @user.fullname%></p>
+        <p class="card-text"><strong>ID: </strong> <%= @user.id%></p>
+        <p class="card-text"><strong>Email: </strong> <%= @user.email%></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8"></div>
 </div>
 
-<div class="card my-3">
-  <div class="card-body">
-    <div class="list-group">
-      <% @user.posts.each do |post| %>
-        <a href="#" class="list-group-item list-group-item-action mt-2">
-            <%= post.title %>
-            <span class="badge badge-primary float-right">Published at: <%= post.created_at %></span>
-        </a>
-    <% end %>
-    </div>
-    
-  </div>
-</div>
