@@ -8,10 +8,14 @@ Rails.application.routes.draw do
   }
 
   resources :users do
-    resources :posts do
-      resources :comments do
-        resources :comments
-      end
-    end
+    resources :posts
+  end
+
+  resources :posts do
+    resources :comments, shallow: true
+  end
+
+  resources :comments do
+    resources :comments, shallow: true
   end
 end
