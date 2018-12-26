@@ -7,6 +7,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
   has_many :comments, as: :commentable
+  has_many :followers, foreign_key: 'follower_id', class_name: 'Relationship'
+  has_many :followings, foreign_key: 'following_id', class_name: 'Relationship'
+  has_many :friends, foreign_key: 'friend_id', class_name: 'Relationship'
+  
   VALID_PASSWORD_REGEX = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.freeze
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :fullname, presence: true
